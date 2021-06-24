@@ -22,6 +22,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('/') }}img/apple-icon.png">
   <link rel="icon" type="image/png" href="{{ asset('/') }}img/favicon.png">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="csrf_token" content="{{ csrf_token() }}">
   <title>
     @yield('title') | {{ config('app.name', 'Laravel') }}
   </title>
