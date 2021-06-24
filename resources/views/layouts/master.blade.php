@@ -32,6 +32,8 @@
   <!-- CSS Files -->
   <link href="{{ asset('/') }}css/bootstrap.min.css" rel="stylesheet" />
   <link href="{{ asset('/') }}css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ asset('/') }}vendor/DataTables/datatables.min.css">
+  @yield('custom-style')
 </head>
 
 <body>
@@ -49,13 +51,15 @@
     <script src="{{ asset('/') }}js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="{{ asset('/') }}js/now-ui-dashboard.min.js?v=1.5.0" type="text/javascript"></script>
+    <script src="{{ asset('/') }}vendor/DataTables/datatables.min.js" type="text/javascript"></script>
     <script>
         $(document).ready(function() {
         // Javascript method's body can be found in assets/js/demos.js
-        demo.initDashboardPageCharts();
+        $('#datatable').DataTable();
 
         });
     </script>
+    @yield('custom-script')
 </body>
 
 </html>
