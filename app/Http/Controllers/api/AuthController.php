@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -20,6 +21,14 @@ class AuthController extends Controller
 
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
 
-        return response(['access_token' => $accessToken]);
+        return response(['message' => 'Login success!!','access_token' => $accessToken]);
+    }
+
+    public function logout(Request $request)
+    {
+        $user = Auth::user()->token();
+        $user->revoke();
+
+        return response(['message' => 'Your logout!!']);
     }
 }
