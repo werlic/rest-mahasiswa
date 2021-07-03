@@ -23,7 +23,7 @@ use App\Models\Mahasiswa;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::apiResource('mahasiswa', MahasiswaController::class)->except(['create', 'destroy'])->middleware('auth:api');
+Route::apiResource('mahasiswa', MahasiswaController::class)->except(['store', 'destroy'])->middleware('auth:api');
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
