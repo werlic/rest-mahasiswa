@@ -58,7 +58,7 @@ class MahasiswaController extends Controller
                 'email' => ['required', 'email', Rule::unique('mahasiswa')->ignore($mahasiswa->id)],
             ]);
         }
-        $update = ['nama', 'jk', 'alamat'];
+        $update = ['nama', 'jk', 'alamat', 'email'];
 
         DB::beginTransaction();
         try {
