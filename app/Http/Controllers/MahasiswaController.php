@@ -91,4 +91,17 @@ class MahasiswaController extends Controller
 
         return redirect()->route('mahasiswa')->with('message-success', 'Berhasil mengubah data!!');
     }
+
+    public function destroy(Mahasiswa $mahasiswa)
+    {
+        DB::beginTransaction();
+        try {
+            $mahasiswa->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e;
+        }
+        return redirect()->route('mahasiswa')->with('message-warning', 'Berhasil menghapus data!!');
+    }
 }

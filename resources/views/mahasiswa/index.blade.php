@@ -67,7 +67,10 @@
                                     <td>{{ $m->jurusan->fakultas->nama }}</td>
                                     <td>{{ $m->email }}</td>
                                     <td>{{ $m->alamat }}</td>
-                                    <td><a href="{{ route('mahasiswa.edit', ['mahasiswa' => $m->id]) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
+                                    <td>
+                                        <a href="{{ route('mahasiswa.edit', ['mahasiswa' => $m->id]) }}" class="btn btn-warning btn-neutral"><i class="fa fa-edit"></i></a>
+                                        <a href="#delete" onclick="event.preventDefault();hapus({{ $m->id }})" class="btn btn-danger btn-neutral"><i class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -77,5 +80,39 @@
             </div>
         </div>
     </div>
+    <!-- Modal delete -->
+    <div class="modal" tabindex="-1" role="dialog" id="ModalDelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi hapus</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger font-weight-bold">Yakin hapus data mahasiswa ini?</p>
+                </div>
+                <div class="modal-footer">
+                    <form id="deleteData" action="" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <button id="DeleteButton" type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+@endsection
+
+@section('custom-script')
+    <script>
+        function hapus(id) {
+            var link = "{!! url('/mahasiswa/delete') !!}" + '/' + id;
+            $('#deleteData').attr('action', link);
+            $('#ModalDelete').modal('toggle');
+        }
+    </script>
 @endsection
