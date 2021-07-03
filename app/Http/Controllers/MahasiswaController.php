@@ -6,6 +6,7 @@ use App\Models\Fakultas;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class MahasiswaController extends Controller
 {
@@ -32,7 +33,7 @@ class MahasiswaController extends Controller
             'nim' => 'required|min:8|max:8|unique:mahasiswa,nim',
             'nama' => 'required',
             'jk' => 'required',
-            'email' => 'required|unique:mahasiswa,email',
+            'email' => 'required|email|unique:mahasiswa,email',
             'fakultas' => 'required',
             'jurusan' => 'required'
         ]);
@@ -53,11 +54,40 @@ class MahasiswaController extends Controller
             return $e;
         }
 
-        return redirect()->route('mahasiswa')->with('message-success', 'Berhasil memabah data!!');
+        return redirect()->route('mahasiswa')->with('message-success', 'Berhasil menambah data!!');
     }
 
     public function edit(Mahasiswa $mahasiswa)
     {
-        return view('mahasiswa.edit', ['mahasiswa' => $mahasiswa]);
+        $fakultas = Fakultas::orderBy('nama', 'asc')->get();
+        return view('mahasiswa.edit', ['mahasiswa' => $mahasiswa, 'fakultas' => $fakultas]);
+    }
+
+    public function update(Request $request, Mahasiswa $mahasiswa)
+    {
+        $this->validate($request, [
+            'nama' => 'required',
+            'jk' => 'required',
+            'email' => ['required','email', Rule::unique('mahasiswa')->ignore($mahasiswa->id)],
+            'fakultas' => 'required',
+            'jurusan' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $mahasiswa->update([
+                'nama' => $request->nama,
+                'jk' => $request->jk,
+                'jurusan_id' => $request->jurusan,
+                'email' => $request->email,
+                'alamat' => $request->alamat
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e;
+        }
+
+        return redirect()->route('mahasiswa')->with('message-success', 'Berhasil mengubah data!!');
     }
 }

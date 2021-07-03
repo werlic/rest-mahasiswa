@@ -36,8 +36,7 @@
                         </strong>
                         </div>
                     @endif
-                        
-                    @endif
+
                     <div class="col-md-2 col-4">
                         <a href="{{ route('mahasiswa.create') }}" class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Tambah</a>
                     </div>
@@ -68,7 +67,7 @@
                                     <td>{{ $m->jurusan->fakultas->nama }}</td>
                                     <td>{{ $m->email }}</td>
                                     <td>{{ $m->alamat }}</td>
-                                    <td>Opsi</td>
+                                    <td><a href="{{ route('mahasiswa.edit', ['mahasiswa' => $m->id]) }}" class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
