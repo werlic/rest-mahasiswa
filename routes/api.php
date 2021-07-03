@@ -17,10 +17,15 @@ use App\Models\Mahasiswa;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::apiResource('mahasiswa', MahasiswaController::class)->middleware('auth:api');
+Route::apiResource('mahasiswa', MahasiswaController::class)->except(['create', 'destroy'])->middleware('auth:api');
+Route::group([
+    'middleware' => 'auth:api'
+], function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+});
