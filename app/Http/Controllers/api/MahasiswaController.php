@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\MahasiswaResouce;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class MahasiswaController extends Controller
 {
@@ -51,7 +53,23 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, Mahasiswa $mahasiswa)
     {
-        //
+        if ($request->has('email')) {
+            $this->validate($request, [
+                'email' => ['required', 'email', Rule::unique('mahasiswa')->ignore($mahasiswa->id)],
+            ]);
+        }
+        $update = ['nama', 'jk', 'alamat'];
+
+        DB::beginTransaction();
+        try {
+            $mahasiswa->update($request->only($update));
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response(['message' => 'Failed update data!!','error' => true], 400);
+        }
+
+        return response(['message' => 'Update data success!!', 'error' => false]);
     }
 
     /**
