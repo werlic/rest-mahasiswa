@@ -84,11 +84,19 @@
                         </div>
                         <div class="row">
                             <div class="col-12">
+                                @php
+                                $ind_fakultas = null;
+                                @endphp
                                 <label for="fakultas">Fakultas</label>
                                 <select name="fakultas" id="fakultas" class="form-control" onchange="getJurusan({{ $mahasiswa->jurusan_id }})">
                                     <option>Pilih Fakultas</option>
-                                    @foreach ($fakultas as $item)
-                                        <option value="{{ $item->id }}" @if($mahasiswa->jurusan->fakultas_id == $item->id) selected @endif>{{ $item->nama }}</option>
+                                    @foreach ($fakultas as $key => $item)
+                                        <option value="{{ $item->id }}" @if($mahasiswa->jurusan->fakultas_id == $item->id) 
+                                            selected
+                                            @php 
+                                            $ind_fakultas = $key;
+                                            @endphp 
+                                        @endif>{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
                                 @error('fakultas')
@@ -103,6 +111,11 @@
                                 <label for="jurusan">Jurusan</label>
                                 <select name="jurusan" id="jurusan" class="form-control">
                                     <option>Pilih Jurusan</option>
+                                    @isset($ind_fakultas)
+                                        @foreach ($fakultas[$ind_fakultas]->jurusan as $j)
+                                            <option value="{{ $j->id }}" @if($mahasiswa->jurusan->id == $j->id) selected @endif>{{ $j->nama }}</option>
+                                        @endforeach
+                                    @endisset
                                 </select>
                                 @error('jurusan')
                                     <span class="invalid-feedback" role="alert">
@@ -127,9 +140,6 @@
 
 @section('custom-script')
     <script>
-        $(function () {
-            getJurusan({!! $mahasiswa->id !!});
-        });
         function getJurusan(jurusanAsal) {
             var fakultas = $('#fakultas').val();
             $.ajaxSetup({

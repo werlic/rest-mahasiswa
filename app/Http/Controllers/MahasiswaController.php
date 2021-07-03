@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fakultas;
+use App\Models\Jurusan;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -59,7 +60,7 @@ class MahasiswaController extends Controller
 
     public function edit(Mahasiswa $mahasiswa)
     {
-        $fakultas = Fakultas::orderBy('nama', 'asc')->get();
+        $fakultas = Fakultas::with('jurusan')->orderBy('nama', 'asc')->get();
         return view('mahasiswa.edit', ['mahasiswa' => $mahasiswa, 'fakultas' => $fakultas]);
     }
 
