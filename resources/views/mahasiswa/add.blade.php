@@ -19,7 +19,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <label for="">NIM</label>
-                                <input type="text" name="nim" id="nim" class="form-control">
+                                <input type="text" name="nim" id="nim" class="form-control" placeholder="11933xxx">
                                 @error('nim')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <label for="">Nama</label>
-                                <input type="text" name="nama" id="nama" class="form-control">
+                                <input type="text" name="nama" id="nama" class="form-control" placeholder="John F.">
                                 @error('nama')
                                     <span class="text-danger" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -113,7 +113,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <button type="submit" value="Save" class="btn btn-pill btn-primary px-3 py-2">Submit</button>
-                                <a href="{{ redirect()->back() }}" class="btn btn-pill btn-secondary px-3 py-2">cancel</a>
+                                <a href="{{ route('mahasiswa') }}" class="btn btn-pill btn-secondary px-3 py-2">cancel</a>
                             </div>
                         </div>
                     </form>
