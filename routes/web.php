@@ -36,6 +36,12 @@ Route::group(['prefix' => 'admin'], function (){
             Route::delete('delete/{mahasiswa}', [MahasiswaController::class, 'destroy'])->name('.delete');
         });
         Route::group(['prefix' => 'jurusan', 'as' => 'jurusan'], function () {
+            Route::get('/', [JurusanController::class, 'index']);
+            Route::get('create', [JurusanController::class, 'create'])->name('.create');
+            Route::post('store', [JurusanController::class, 'store'])->name('.store');
+            Route::get('edit/{jurusan}', [JurusanController::class, 'edit'])->name('.edit');
+            Route::put('update/{jurusan}', [JurusanController::class, 'update'])->name('.update');
+            Route::delete('delete/{jurusan}', [JurusanController::class, 'destroy'])->name('.delete');
             Route::get('/in-fakultas', [JurusanController::class, 'jurusanFakultas'])->name('.in-fakultas');
         });
         Route::group(['prefix' => 'fakultas', 'as' => 'fakultas'], function () {

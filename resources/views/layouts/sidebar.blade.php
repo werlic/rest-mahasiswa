@@ -31,6 +31,12 @@
               <p>Fakultas</p>
             </a>
           </li>
+          <li class="{{ request()->routeIs('jurusan*') ? 'active' : '' }}">
+            <a href="{{ route('jurusan') }}">
+              <i class="now-ui-icons business_badge"></i>
+              <p>Jurusan</p>
+            </a>
+          </li>
           <li>
             <a href="./user.html">
               <i class="now-ui-icons users_single-02"></i>
