@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginUserMhsController;
+use App\Http\Controllers\FakultasController;
 use App\Http\Controllers\JurusanController;
 use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,14 @@ Route::group(['prefix' => 'admin'], function (){
         });
         Route::group(['prefix' => 'jurusan', 'as' => 'jurusan'], function () {
             Route::get('/in-fakultas', [JurusanController::class, 'jurusanFakultas'])->name('.in-fakultas');
+        });
+        Route::group(['prefix' => 'fakultas', 'as' => 'fakultas'], function () {
+            Route::get('/', [FakultasController::class, 'index']);
+            Route::get('create', [FakultasController::class, 'create'])->name('.create');
+            Route::post('store', [FakultasController::class, 'store'])->name('.store');
+            Route::get('edit/{fakultas}', [FakultasController::class, 'edit'])->name('.edit');
+            Route::put('update/{fakultas}', [FakultasController::class, 'update'])->name('.update');
+            Route::delete('delete/{fakultas}', [FakultasController::class, 'destroy'])->name('.delete');
         });
     });
 });

@@ -21,8 +21,14 @@
           </li>
           <li class="{{ request()->routeIs('mahasiswa*') ? 'active' : '' }}">
             <a href="{{ route('mahasiswa') }}">
-              <i class="now-ui-icons education_atom"></i>
+              <i class="now-ui-icons education_hat"></i>
               <p>Data Mahasiswa</p>
+            </a>
+          </li>
+          <li class="{{ request()->routeIs('fakultas*') ? 'active' : '' }}">
+            <a href="{{ route('fakultas') }}">
+              <i class="now-ui-icons business_bank"></i>
+              <p>Fakultas</p>
             </a>
           </li>
           <li>
@@ -41,7 +47,7 @@
           </li>
           <li class="{{ request()->routeIs('mahasiswa*') ? 'active' : '' }}">
             <a href="{{ route('mahasiswa.profile') }}">
-              <i class="now-ui-icons education_atom"></i>
+              <i class="now-ui-icons education_hat"></i>
               <p>Profile</p>
             </a>
           </li>
