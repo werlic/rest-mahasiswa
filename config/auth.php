@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'mahasiswa' => [
+            'driver' => 'session',
+            'provider' => 'mahasiswa',
+        ],
 
         'api' => [
             'driver' => 'passport',
@@ -70,6 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        'mahasiswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UserMahasiswa::class,
+        ],
 
         // 'users' => [
         //     'driver' => 'database',
@@ -94,6 +102,12 @@ return [
 
     'passwords' => [
         'users' => [
+            'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'mahasiswa' => [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,

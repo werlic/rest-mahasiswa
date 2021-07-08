@@ -11,6 +11,11 @@ class Mahasiswa extends Model
     protected $table = 'mahasiswa';
     protected $fillable = ['nim', 'nama', 'jk', 'jurusan_id', 'alamat', 'email'];
 
+    public function user()
+    {
+        return $this->hasOne(UserMahasiswa::class, 'nim', 'nim');
+    }
+
     public function jurusan()
     {
         return $this->belongsTo(Jurusan::class);

@@ -6,15 +6,16 @@ use App\Models\Fakultas;
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class MahasiswaController extends Controller
 {
-    public function __construct() 
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct() 
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
     {
@@ -90,6 +91,45 @@ class MahasiswaController extends Controller
         }
 
         return redirect()->route('mahasiswa')->with('message-success', 'Berhasil mengubah data!!');
+    }
+
+    public function profile()
+    {
+        $mahasiswa = Auth::guard('mahasiswa')->user()->mahasiswa()->first();
+        $fakultas = Fakultas::with('jurusan')->orderBy('nama', 'asc')->get();
+        return view('mahasiswa.profile', ['mahasiswa' => $mahasiswa, 'fakultas' => $fakultas]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $mahasiswa = Auth::guard('mahasiswa')->user()->mahasiswa();
+        $id = $mahasiswa->first()->id;
+        $this->validate($request, [
+            'nama' => 'required',
+            'jk' => 'required',
+            'email' => ['required', 'email', Rule::unique('mahasiswa')->ignore($id)],
+            'fakultas' => 'required',
+            'jurusan' => 'required'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $mahasiswa->update([
+                'nama' => $request->nama,
+                'jk' => $request->jk,
+                'jurusan_id' => $request->jurusan,
+                'email' => $request->email,
+                'alamat' => $request->alamat
+            ]);
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $e;
+        }
+
+        $fakultas = Fakultas::with('jurusan')->orderBy('nama', 'asc')->get();
+
+        return redirect()->route('mahasiswa.profile', ['mahasiswa' => $mahasiswa, 'fakultas' => $fakultas])->with('message-success', 'Berhasil mengubah data!!');
     }
 
     public function destroy(Mahasiswa $mahasiswa)

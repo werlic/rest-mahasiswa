@@ -148,7 +148,7 @@
                 }
             });
             $.ajax({
-                url: '{{ url('/') }}' + '/jurusan/in-fakultas',
+                url: '{{ route('jurusan.in-fakultas') }}',
                 type: "GET",
                 dataType: 'json',
                 data: {

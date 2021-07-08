@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Fakultas;
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
+use App\Models\UserMahasiswa;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,13 +34,18 @@ class DatabaseSeeder extends Seeder
 
         $faker = \Faker\Factory::create('id_ID');
         for ($i=0; $i < 10; $i++) { 
+            $nim = $faker->numerify('########');
             Mahasiswa::create([
                 'nama' => $faker->name('male'),
-                'nim' => $faker->numerify('########'),
+                'nim' => $nim,
                 'jk' => 'L',
                 'jurusan_id' => $faker->numberBetween(1, 2),
                 'alamat' => $faker->address(),
                 'email' => $faker->email()
+            ]);
+            UserMahasiswa::create([
+                'nim' => $nim,
+                'password' => bcrypt($nim)
             ]);
         }
     }

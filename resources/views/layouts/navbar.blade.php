@@ -28,7 +28,9 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
                   {{-- <a class="dropdown-item" href="#">Action</a> --}}
                   <a class="dropdown-item" href="#" onclick="event.preventDefault();$('#logout-form').submit();">Logout</a>
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  <form id="logout-form" action="
+                  @auth('web') {{ route('logout') }} @endauth
+                  @auth('mahasiswa') {{ route('logout.mahasiswa') }} @endauth" method="POST" class="d-none">
                     @csrf
                   </form>
                 </div>
