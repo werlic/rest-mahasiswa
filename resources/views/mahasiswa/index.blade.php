@@ -110,7 +110,7 @@
 @section('custom-script')
     <script>
         function hapus(id) {
-            var link = "{!! url('/mahasiswa/delete') !!}" + '/' + id;
+            var link = "{!! url('admin/mahasiswa/delete') !!}" + '/' + id;
             $('#deleteData').attr('action', link);
             $('#ModalDelete').modal('toggle');
         }
