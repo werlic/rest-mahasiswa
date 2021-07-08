@@ -13,7 +13,7 @@ class CreateUserMahasiswasTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_mahasiswas', function (Blueprint $table) {
+        Schema::create('user_mahasiswa', function (Blueprint $table) {
             $table->id();
             $table->string('nim')->unique();
             $table->string('password');
@@ -29,6 +29,6 @@ class CreateUserMahasiswasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_mahasiswas');
+        Schema::dropIfExists('user_mahasiswa');
     }
 }
