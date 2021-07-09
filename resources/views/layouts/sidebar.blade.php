@@ -37,12 +37,12 @@
               <p>Jurusan</p>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="./user.html">
               <i class="now-ui-icons users_single-02"></i>
               <p>User Profile</p>
             </a>
-          </li>
+          </li> --}}
           @endauth
           @auth('mahasiswa')
           <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
@@ -57,12 +57,12 @@
               <p>Profile</p>
             </a>
           </li>
-          <li>
+          {{-- <li>
             <a href="./user.html">
               <i class="now-ui-icons users_single-02"></i>
               <p>User Profile</p>
             </a>
-          </li>
+          </li> --}}
           @endauth
         </ul>
     </div>
