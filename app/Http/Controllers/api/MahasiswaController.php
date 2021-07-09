@@ -8,6 +8,7 @@ use App\Models\Fakultas;
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -56,6 +57,12 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $nim)
     {
+        $user = Auth::user('mahasiswa');
+
+        if($user->nim !== $nim){
+            return response(['message' => 'Tidak punya akses untuk update data!!', 'error' => true], 400);
+        }
+        
         $mahasiswa = Mahasiswa::where('nim', $nim)->first();
         if ($request->has('email')) {
             $this->validate($request, [
