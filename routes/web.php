@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin'], function (){
     Route::group(['middleware' => ['auth:web']], function () {
         Route::get('/', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
         Route::group(['prefix' => 'mahasiswa', 'as' => 'mahasiswa'], function () {
-            Route::get('', [MahasiswaController::class, 'index']);
+            Route::get('/', [MahasiswaController::class, 'index']);
             Route::get('create', [MahasiswaController::class, 'create'])->name('.create');
             Route::post('store', [MahasiswaController::class, 'store'])->name('.store');
             Route::get('edit/{mahasiswa}', [MahasiswaController::class, 'edit'])->name('.edit');
