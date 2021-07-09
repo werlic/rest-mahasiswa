@@ -97,7 +97,7 @@ class JurusanController extends Controller
             return response(['message' => 'Request invalid!!'], 400);
         }
 
-        $jurusan = Jurusan::select('id', 'nama')->where('jurusan_id', $request->fakultas)
+        $jurusan = Jurusan::select('id', 'nama')->where('fakultas_id', $request->fakultas)
                     ->orderBy('nama', 'asc')
                     ->get();
 

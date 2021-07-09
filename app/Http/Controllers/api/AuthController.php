@@ -11,22 +11,22 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $loginData = $request->validate([
-            'email' => 'email|required',
+            'nim' => 'required',
             'password' => 'required'
         ]);
 
-        if (!auth()->attempt($loginData)) {
+        if (!auth('mahasiswa')->attempt($loginData)) {
             return response(['message' => 'This User does not exist, check your details'], 400);
         }
 
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        $accessToken = auth('mahasiswa')->user()->createToken('authToken')->accessToken;
 
         return response(['message' => 'Login success!!','access_token' => $accessToken]);
     }
 
     public function logout(Request $request)
     {
-        $user = Auth::user()->token();
+        $user = Auth::user('mahasiswa')->token();
         $user->revoke();
 
         return response(['message' => 'Your logout!!']);

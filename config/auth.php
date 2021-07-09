@@ -47,9 +47,14 @@ return [
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'users',
+            'provider' => 'mahasiswa',
             'hash' => false,
         ],
+        // 'api-mahasiswa' => [
+        //     'driver' => 'passport',
+        //     'provider' => 'mahasiswa',
+        //     'hash' => false,
+        // ],
     ],
 
     /*

@@ -23,9 +23,9 @@ use App\Models\Mahasiswa;
 
 Route::post('login', [AuthController::class, 'login']);
 
-Route::apiResource('mahasiswa', MahasiswaController::class)->except(['store', 'destroy'])->middleware('auth:api');
 Route::group([
     'middleware' => 'auth:api'
 ], function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::apiResource('mahasiswa', MahasiswaController::class)->except(['store', 'destroy']);
 });

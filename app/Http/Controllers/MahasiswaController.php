@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Fakultas;
 use App\Models\Jurusan;
 use App\Models\Mahasiswa;
+use App\Models\UserMahasiswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -42,13 +43,16 @@ class MahasiswaController extends Controller
 
         DB::beginTransaction();
         try {
-            Mahasiswa::create([
+            $mahasiswa = Mahasiswa::create([
                 'nim' => $request->nim,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'jurusan_id' => $request->jurusan,
                 'email' => $request->email,
                 'alamat' => $request->alamat
+            ]);
+            $mahasiswa->user()->create([
+                'password' => bcrypt($request->nim)
             ]);
             DB::commit();
         } catch (\Exception $e) {
@@ -136,6 +140,7 @@ class MahasiswaController extends Controller
     {
         DB::beginTransaction();
         try {
+            $mahasiswa->user()->delete();
             $mahasiswa->delete();
             DB::commit();
         } catch (\Exception $e) {
